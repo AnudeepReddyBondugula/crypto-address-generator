@@ -1,13 +1,66 @@
-body {
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  font-size: large;
+}
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
+}
+.wrapper{
+  width: 450px;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  border-radius: 20px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+
+.title{
+  text-align: center;
+  padding: 30px;
+  padding-top: 0;
+}
+
+#TypeOfCurrency{
+  padding-top: 20px;
+}
+
+button {
+  padding: 1px 6px 1px 6px;
+  background-color: #e491de;
+  /* border-radius: 5px; */
+}
+
+button:hover{
+  background-color: #4158d0;
+  padding: 2px 8px 2px 8px;
+  color: #fff;
+}
+
+.Generate{
+  text-align: center;
+  padding-top: 18px;
+}
+
+.PublicKey, .Address{
+  text-align: center;
+  padding-top: 20px;
+}
+
+#publicKeyText, #AddressText{
+  resize: none;
+}
+
+textarea{
+  border-width: 2px;
+  border-color: black;
 }
