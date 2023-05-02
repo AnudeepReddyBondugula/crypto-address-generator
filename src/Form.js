@@ -7,7 +7,21 @@ export default function Form(){
 
     const [privateKey, setPrivateKey] = useState('');
     function validatePrivateKey(privateKey){
-        return true;
+        if (!/^[0-9a-fA-F]{64}$/.test(privateKey)) {
+            return false;
+          }
+        
+          // Initializing the elliptic curve object
+          const secp256k1 = new ec('secp256k1');
+        
+          try {
+            secp256k1.keyFromPrivate(privateKey, 'hex');
+          } catch (error) {
+            // Private key is invalid
+            return false;
+          }
+        
+          return true;
     }
     function handleClick(){
         const currency = document.getElementById("type").value;
