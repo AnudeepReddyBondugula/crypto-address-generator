@@ -1,53 +1,60 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import publicAddressPairEthereum from './utils/Ethereum';
 import publicAddressPairBitcoin from './utils/Bitcoin';
+const { ec } = require('elliptic');
 
 
-export default function Form(){
+
+export default function Form() {
 
     const [privateKey, setPrivateKey] = useState('');
-    function validatePrivateKey(privateKey){
+    const [addr, setaddr] = useState('');
+    function validatePrivateKey(privateKey) {
         if (!/^[0-9a-fA-F]{64}$/.test(privateKey)) {
             return false;
-          }
-        
-          // Initializing the elliptic curve object
-          const secp256k1 = new ec('secp256k1');
-        
-          try {
+        }
+
+        // Initializing the elliptic curve object
+        const secp256k1 = new ec('secp256k1');
+
+        try {
             secp256k1.keyFromPrivate(privateKey, 'hex');
-          } catch (error) {
+        } catch (error) {
             // Private key is invalid
             return false;
-          }
-        
-          return true;
+        }
+
+        return true;
     }
-    function handleClick(){
+    function handleClick() {
+
         const currency = document.getElementById("type").value;
         let text = document.getElementById("publicKeyText");
         let address = document.getElementById("AddressText");
-        if (!validatePrivateKey(privateKey)){
+        if (!validatePrivateKey(privateKey)) {
             alert("Enter Valid Private Key!");
             return;
         }
-        if (currency === "Ethereum"){
+        if (currency === "Ethereum") {
             const pair = publicAddressPairEthereum(privateKey);
             text.value = pair['PublicKey'];
             address.value = pair['Address'];
-            
+
         }
-        else if (currency === 'Bitcoin'){
+        else if (currency === 'Bitcoin') {
             const pair = publicAddressPairBitcoin(privateKey);
             text.value = pair['PublicKey'];
-            address.value = pair['Address'];
-            address.value = "Hello";
+            pair['Address'].then((data) => {
+                setaddr("0x" + data);
+            })
+            address.value = addr;
+
         }
     }
 
     return (
         <form action="#" onSubmit={e => e.preventDefault()}>
-            <div className ="input-data">
+            <div className="input-data">
                 <label>Private Key: </label>
                 <input type='text'
                     onChange={e => {
@@ -72,13 +79,13 @@ export default function Form(){
             <div className="PublicKey">
                 <label>Public Key</label>
                 <br />
-                <textarea id="publicKeyText" rows={5} cols={40} disabled/>
+                <textarea id="publicKeyText" rows={5} cols={40} disabled />
             </div>
 
             <div className='Address'>
-            <label>Address</label>
+                <label>Address</label>
                 <br />
-                <textarea id="AddressText" rows={2} cols={40} disabled/>
+                <textarea id="AddressText" rows={2} cols={40} disabled />
             </div>
         </form>
     )

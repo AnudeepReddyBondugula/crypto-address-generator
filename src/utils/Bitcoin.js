@@ -1,38 +1,44 @@
 
 import getPublicKey from './ECDSA.js'
-const { sha256, ripemd160 } = require('crypto-hash');
+import ripemd160 from "ripemd160-js/ripemd160.mjs";
+const { sha256 } = require('crypto-hash');
 const Buffer = require('buffer').Buffer;
-const bs58check = require('bs58check');
+const bs58 = require('bs58');
 
-function address(publicKey){
-    console.log(publicKey)
+
+async function address(publicKey) {
     const publicKeyBuffer = Buffer.from(publicKey, 'hex');
-    const hash = ripemd160(Buffer.from(sha256(publicKeyBuffer), 'hex'));
-    
-    // Add the version byte
+
+    const hash = await ripemd160(Buffer.from(await sha256(publicKeyBuffer), 'hex'));
+
+    // // Add the version byte
     const versionByte = Buffer.from('00', 'hex');
     const extendedPublicKeyHash = Buffer.concat([versionByte, hash]);
-    
-    // Compute the checksum
-    const checksum = sha256(sha256(extendedPublicKeyHash)).substring(0, 8);
-    
-    // Concatenate the extended public key hash and the checksum
+
+    // // Compute the checksum
+    const hash1 = await sha256(extendedPublicKeyHash);
+
+    const hash2 = await sha256(Buffer.from(hash1, 'hex'));
+
+    let checksum = hash2.substring(0, 8)
+
+
+    checksum = Buffer.from(checksum, 'hex');
+
+    // // Concatenate the extended public key hash and the checksum
     const extendedPublicKeyHashChecksum = Buffer.concat([extendedPublicKeyHash, checksum]);
-    
-    // Encode the address in Base58Check format
-    const address = bs58check.encode(extendedPublicKeyHashChecksum);
-    
-    
-    return address;
+
+    // // Encode the address in Base58Check format
+    const addr = bs58.encode(extendedPublicKeyHashChecksum);
+    return addr;
 }
 
 
-export default function publicAddressPairBitcoin(privateKey){
+export default function publicAddressPairBitcoin(privateKey) {
     let publicKey = getPublicKey(privateKey);
     const result = {
-        'PublicKey' : publicKey,
-        'Address' : address(publicKey)
-    };
-
+        'PublicKey': publicKey,
+        'Address': address(publicKey)
+    }
     return result;
 }
