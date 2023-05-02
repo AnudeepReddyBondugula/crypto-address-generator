@@ -4,10 +4,10 @@ const { sha256, ripemd160 } = require('crypto-hash');
 const Buffer = require('buffer').Buffer;
 const bs58check = require('bs58check');
 
-function address(publicKey){
+async function address(publicKey){
     console.log(publicKey)
     const publicKeyBuffer = Buffer.from(publicKey, 'hex');
-    const hash = ripemd160(Buffer.from(sha256(publicKeyBuffer), 'hex'));
+    const hash = ripemd160(Buffer.from(await sha256(publicKeyBuffer), 'hex'));
     
     // Add the version byte
     const versionByte = Buffer.from('00', 'hex');
