@@ -53,8 +53,9 @@ export default function Form() {
     }
 
     return (
-        <form action="#" onSubmit={e => e.preventDefault()}>
-            <div className="input-data">
+        <form className='form' action="#" onSubmit={e => e.preventDefault()}>
+            <div className="form__entries">
+                <div className="input-data">
                 <label>Private Key: </label>
                 <input type='text'
                     onChange={e => {
@@ -71,12 +72,14 @@ export default function Form() {
                     {/* <option value="Ethereum">Ethereum</option> */}
                 </select>
             </div>
+            </div>
 
             <div className="Generate">
                 <button onClick={handleClick}>Generate</button>
             </div>
 
-            <div className="PublicKey">
+            <div className="form__results">
+                <div className="PublicKey">
                 <label>Public Key</label>
                 <br />
                 <textarea id="publicKeyText" rows={5} cols={40} disabled />
@@ -86,6 +89,7 @@ export default function Form() {
                 <label>Address</label>
                 <br />
                 <textarea id="AddressText" rows={2} cols={40} disabled />
+            </div>
             </div>
         </form>
     )
