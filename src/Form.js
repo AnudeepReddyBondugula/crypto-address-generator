@@ -20,7 +20,6 @@ export default function Form() {
         }
         const privKey = privKeyArr.join("")
         setPrivateKey(privKey)
-        console.log(privKey.length)
     }
 
     function validatePrivateKey(privateKey) {
