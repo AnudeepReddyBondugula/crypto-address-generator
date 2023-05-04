@@ -7,6 +7,16 @@ const { ec } = require('elliptic');
 
 export default function Form() {
 
+    function generatePrivateKey() {
+        const characters ='ABCDEFabcdef0123456789';
+            let result = '';
+            const charactersLength = characters.length;
+            for ( let i = 0; i < 64; i++ ) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            setPrivateKey(result);
+    }
+
     const [privateKey, setPrivateKey] = useState('');
     const [addr, setaddr] = useState('');
     function validatePrivateKey(privateKey) {
@@ -57,10 +67,14 @@ export default function Form() {
             <div className="form__entries">
                 <div className="input-data">
                 <label>Private Key: </label>
+                <div className="GeneratePrivateKey">
+                    <button onClick={generatePrivateKey}>Random Private Key</button>
+                </div>
                 <input type='text'
                     onChange={e => {
                         setPrivateKey(e.target.value);
                     }}
+                    value = {privateKey}
                 />
             </div>
 
