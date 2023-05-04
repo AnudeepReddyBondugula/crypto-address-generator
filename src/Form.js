@@ -66,11 +66,10 @@ export default function Form() {
         <form className='form' action="#" onSubmit={e => e.preventDefault()}>
             <div className="form__entries">
                 <div className="input-data">
-                <label>Private Key: </label>
                 <div className="GeneratePrivateKey">
                     <button onClick={generatePrivateKey}>Random Private Key</button>
                 </div>
-                <input type='text'
+                <input id="PrivateKey" type='text'
                     onChange={e => {
                         setPrivateKey(e.target.value);
                     }}
@@ -86,8 +85,6 @@ export default function Form() {
                     {/* <option value="Ethereum">Ethereum</option> */}
                 </select>
             </div>
-            </div>
-
             <div className="Generate">
                 <button onClick={handleClick}>Generate</button>
             </div>
@@ -103,6 +100,7 @@ export default function Form() {
                 <label>Address</label>
                 <br />
                 <textarea id="AddressText" rows={2} cols={40} disabled />
+            </div>
             </div>
             </div>
         </form>
