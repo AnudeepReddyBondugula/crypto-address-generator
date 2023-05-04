@@ -73,6 +73,7 @@ export default function Form() {
                     <button onClick={generatePrivateKey}>Random Private Key</button>
                 </div>
                 <input id="PrivateKey" type='text'
+                    autoComplete='off'
                     onChange={e => {
                         setPrivateKey(e.target.value);
                     }}
