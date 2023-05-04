@@ -9,6 +9,20 @@ export default function Form() {
 
     const [privateKey, setPrivateKey] = useState('');
     const [addr, setaddr] = useState('');
+
+    const characters = "ABCDEFabcdef0123456789"
+
+    function randomizePrivateKey() {
+        let privKeyArr = []
+        for (let i = 0; i < 64; i++) {
+            const randomCharacter = characters[Math.floor(Math.random() * 22)]
+            privKeyArr.push(randomCharacter)
+        }
+        const privKey = privKeyArr.join("")
+        setPrivateKey(privKey)
+        console.log(privKey.length)
+    }
+
     function validatePrivateKey(privateKey) {
         if (!/^[0-9a-fA-F]{64}$/.test(privateKey)) {
             return false;
@@ -26,6 +40,7 @@ export default function Form() {
 
         return true;
     }
+
     function handleClick() {
 
         const currency = document.getElementById("type").value;
@@ -61,7 +76,9 @@ export default function Form() {
                     onChange={e => {
                         setPrivateKey(e.target.value);
                     }}
+                    value={privateKey}
                 />
+                <button className='RandBtn' onClick={randomizePrivateKey}>Randomize</button>
             </div>
 
             <div id="TypeOfCurrency">

@@ -55,6 +55,11 @@ button:hover{
   padding-top: 18px;
 }
 
+.RandBtn {
+  margin-left: 1rem;
+}
+
+
 .PublicKey, .Address{
   text-align: center;
   padding-top: 20px;
@@ -92,7 +97,9 @@ textarea{
     .form__entries{
       margin-top: 1.5rem;
     }
-  
+    .Generate {
+      margin-top: 0.6rem;
+    }
 }
 @media screen and (max-width:380px) {
   .form {
