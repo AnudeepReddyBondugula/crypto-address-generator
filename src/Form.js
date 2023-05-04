@@ -59,9 +59,9 @@ export default function Form() {
             pair['Address'].then((data) => {
                 setaddr("0x" + data);
                 address.value = addr;
-
             })
             
+
         }
     }
 
