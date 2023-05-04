@@ -22,14 +22,23 @@ body{
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   border-radius: 20px;
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 
-
+.form__entries{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .title{
   text-align: center;
-  padding: 30px;
+  padding: 10px;
   padding-top: 0;
 }
 
@@ -53,6 +62,15 @@ button:hover{
 .Generate{
   text-align: center;
   padding-top: 18px;
+}
+
+.GeneratePrivateKey{
+  text-align: center;
+  padding-bottom: 18px;
+}
+
+.PrivateKey{
+  text-align: center;
 }
 
 .PublicKey, .Address{

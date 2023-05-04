@@ -7,6 +7,18 @@ const { ec } = require('elliptic');
 
 export default function Form() {
 
+    function generatePrivateKey() {
+        let result = '';
+        while(result.length !== 64) {
+            var buf = new Uint8Array(1);
+            crypto.getRandomValues(buf);
+            if((buf[0] >= 48 && buf[0] <= 57) || (buf[0] >= 65 && buf[0] <= 70) || (buf[0] >= 97 && buf[0] <= 102)) {
+                result += String.fromCharCode(buf[0])
+            }
+        }
+        setPrivateKey(result);
+    }
+
     const [privateKey, setPrivateKey] = useState('');
     const [addr, setaddr] = useState('');
     function validatePrivateKey(privateKey) {
@@ -56,11 +68,14 @@ export default function Form() {
         <form className='form' action="#" onSubmit={e => e.preventDefault()}>
             <div className="form__entries">
                 <div className="input-data">
-                <label>Private Key: </label>
-                <input type='text'
+                <div className="GeneratePrivateKey">
+                    <button onClick={generatePrivateKey}>Random Private Key</button>
+                </div>
+                <input id="PrivateKey" type='text'
                     onChange={e => {
                         setPrivateKey(e.target.value);
                     }}
+                    value = {privateKey}
                 />
             </div>
 
@@ -72,8 +87,6 @@ export default function Form() {
                     {/* <option value="Ethereum">Ethereum</option> */}
                 </select>
             </div>
-            </div>
-
             <div className="Generate">
                 <button onClick={handleClick}>Generate</button>
             </div>
@@ -89,6 +102,7 @@ export default function Form() {
                 <label>Address</label>
                 <br />
                 <textarea id="AddressText" rows={2} cols={40} disabled />
+            </div>
             </div>
             </div>
         </form>
