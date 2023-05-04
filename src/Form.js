@@ -8,13 +8,15 @@ const { ec } = require('elliptic');
 export default function Form() {
 
     function generatePrivateKey() {
-        const characters ='ABCDEFabcdef0123456789';
-            let result = '';
-            const charactersLength = characters.length;
-            for ( let i = 0; i < 64; i++ ) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        let result = '';
+        while(result.length !== 64) {
+            var buf = new Uint8Array(1);
+            crypto.getRandomValues(buf);
+            if((buf[0] >= 48 && buf[0] <= 57) || (buf[0] >= 65 && buf[0] <= 70) || (buf[0] >= 97 && buf[0] <= 102)) {
+                result += String.fromCharCode(buf[0])
             }
-            setPrivateKey(result);
+        }
+        setPrivateKey(result);
     }
 
     const [privateKey, setPrivateKey] = useState('');
