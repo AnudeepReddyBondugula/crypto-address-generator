@@ -20,7 +20,7 @@ export default function Form() {
     }
 
     const [privateKey, setPrivateKey] = useState('');
-    const [addr, setaddr] = useState('');
+
     function validatePrivateKey(privateKey) {
         if (!/^[0-9a-fA-F]{64}$/.test(privateKey)) {
             return false;
@@ -57,8 +57,8 @@ export default function Form() {
             const pair = publicAddressPairBitcoin(privateKey);
             text.value = pair['PublicKey'];
             pair['Address'].then((data) => {
-                setaddr("0x" + data);
-                address.value = addr;
+
+                address.value = "0x" + data;
             })
             
 
