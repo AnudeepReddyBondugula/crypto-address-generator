@@ -1,9 +1,22 @@
 import { useState } from 'react';
 import publicAddressPairEthereum from './utils/Ethereum';
 import publicAddressPairBitcoin from './utils/Bitcoin';
+import { QRCodeCanvas } from "qrcode.react";
 const { ec } = require('elliptic');
 
-
+const downloadQR = () => {
+    const canvas = document.getElementById("address-qr");
+    console.log(canvas);
+    const pngUrl = canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    let downloadLink = document.createElement("a");
+    downloadLink.href = pngUrl;
+    downloadLink.download = "address-qr.png";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
 
 export default function Form() {
 
@@ -20,6 +33,7 @@ export default function Form() {
     }
 
     const [privateKey, setPrivateKey] = useState('');
+    const [addr, setaddr] = useState("");
 
     function validatePrivateKey(privateKey) {
         if (!/^[0-9a-fA-F]{64}$/.test(privateKey)) {
@@ -51,6 +65,7 @@ export default function Form() {
             const pair = publicAddressPairEthereum(privateKey);
             text.value = pair['PublicKey'];
             address.value = pair['Address'];
+            setaddr(pair['Address']);
 
         }
         else if (currency === 'Bitcoin') {
@@ -59,6 +74,7 @@ export default function Form() {
             pair['Address'].then((data) => {
 
                 address.value = "0x" + data;
+                setaddr("0x" + data);
             })
             
 
@@ -104,6 +120,15 @@ export default function Form() {
                 <label>Address</label>
                 <br />
                 <textarea id="AddressText" rows={2} cols={40} disabled />
+                {addr !== "" ? (
+              <div>
+                <QRCodeCanvas value={addr} id="address-qr" />
+                <div onClick={downloadQR} >
+                
+                  Download QR
+                </div>
+              </div>
+            ) : null}
             </div>
             </div>
             </div>
