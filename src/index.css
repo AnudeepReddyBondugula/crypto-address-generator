@@ -13,7 +13,7 @@ body{
   align-items: center;
   justify-content: center;
   min-height: 50vh;
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  background: rgb(250, 199, 199);
 }
 .wrapper{
   width: 100%;
